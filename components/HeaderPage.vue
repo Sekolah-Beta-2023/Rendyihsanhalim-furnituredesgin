@@ -1,73 +1,96 @@
 <template>
-    <header class="header" :class=" { 'blur__header': isHeaderBlurred }" id="header" >
-      <nav class="nav container">
-        <a class="nav__logo"><img class="nav__img" src="~/assets/img/Logo/IKEA-Logo-1967.png" alt="" /></a>
-  
-        <div class="nav__menu" :class="{ 'show-menu': isMenuVisible }">
-          <ul class="nav__list">
-            <li class="nav__item">
-              <nuxt-link to="/" class="nav__link">Home</nuxt-link>
-            </li>
-            <li class="nav__item">
-              <nuxt-link to="/Product" class="nav__link">Product</nuxt-link>
-            </li>
-            <li class="nav__item">
-              <a  class="nav__link">Inspiration</a>
-            </li>
-            <li class="nav__item">
-              <a  class="nav__link">About Us</a>
-            </li>
-          </ul>
-  
-          <!-- LOGIN NAVCART -->
-          <div class="nav__logincart">
-            <nuxt-link to="/Login" class="nav__login"> Log In </nuxt-link>
-            <a class="nav__cart"><i class="fa-solid fa-cart-shopping"></i></a>
-          </div>
-  
-          <!-- CLOSE BUTTON -->
-          <div class="nav__close" @click="hideMenu" id="nav-close">
-            <i class="fa-solid fa-xmark"></i>
-          </div>
-        </div>
-  
-        <!-- TOGGLE BUTTON -->
-        <div class="nav__toggle" @click="toggleMenu" id="nav-toggle">
-          <i class="fa-solid fa-bars"></i>
-        </div>
-      </nav>
-    </header>
-  </template>
+  <header class="header" :class="{ 'blur__header': isHeaderBlurred }" id="header">
+    <nav class="nav container">
+      <a class="nav__logo">
+        <img class="nav__img" src="~/assets/img/Logo/IKEA-Logo-1967.png" alt="" />
+      </a>
 
-  <script src="~/assets/js/main.js"></script>
-  
-  <script>
-  export default {
-    data() {
-      return {
-        isMenuVisible: false,
-        isHeaderBlurred: false,
-      };
+      <div class="nav__menu" :class="{ 'show-menu': isMenuVisible }">
+        <ul class="nav__list">
+          <li class="nav__item">
+            <nuxt-link to="/" class="nav__link">Home</nuxt-link>
+          </li>
+          <li class="nav__item">
+            <nuxt-link to="/Product" class="nav__link">Product</nuxt-link>
+          </li>
+          <li class="nav__item">
+            <a class="nav__link">Inspiration</a>
+          </li>
+          <li class="nav__item">
+            <a class="nav__link">About Us</a>
+          </li>
+        </ul>
+
+        <!-- LOGIN NAVCART -->
+        <div class="nav__logincart">
+          <button v-if="!user" class="nav__login">
+            <nuxt-link to="/Signin"> Sign In</nuxt-link>
+          </button>
+          <span v-else>
+            <nuxt-link to="/Profile" class="nav__link">{{ user.email }}</nuxt-link>
+          </span>
+          <a class="nav__cart"><i class="fa-solid fa-cart-shopping"></i></a>
+        </div>
+
+        <!-- CLOSE BUTTON -->
+        <div class="nav__close" @click="hideMenu" id="nav-close">
+          <i class="fa-solid fa-xmark"></i>
+        </div>
+      </div>
+
+      <!-- TOGGLE BUTTON -->
+      <div class="nav__toggle" @click="toggleMenu" id="nav-toggle">
+        <i class="fa-solid fa-bars"></i>
+      </div>
+    </nav>
+  </header>
+</template>
+
+<script src="~/assets/js/main.js"></script>
+
+<script>
+import { supabase } from '~/utils/supabase';
+
+export default {
+  data() {
+    return {
+      isMenuVisible: false,
+      isHeaderBlurred: false,
+      user: null,
+    };
+  },
+  methods: {
+    toggleMenu() {
+      this.isMenuVisible = !this.isMenuVisible;
     },
-    methods: {
-      toggleMenu() {
-        this.isMenuVisible = !this.isMenuVisible;
-      },
-      hideMenu() {
-        this.isMenuVisible = false;
-      },
-      handleScroll() {
-        this.isHeaderBlurred = window.scrollY >= 50;
-      },
+    hideMenu() {
+      this.isMenuVisible = false;
     },
-    mounted() {
-      window.addEventListener('scroll', this.handleScroll);
+    handleScroll() {
+      this.isHeaderBlurred = window.scrollY >= 50;
     },
-    beforeDestroy() {
-      window.removeEventListener('scroll', this.handleScroll);
-    },
-  };
-  </script>
+  },
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll);
+    const fetchUser = async () => {
+      try {
+        const { data } = await supabase.auth.getUser();
+        this.user = data.user ?? null;
+      } catch (error) {
+        console.error('Error fetching user:', error.message);
+      }
+    };
+    fetchUser();
+    supabase.auth.onAuthStateChange((event, session) => {
+      fetchUser();
+    });
+  },
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.handleScroll);
+  },
+};
+</script>
+
 
 <style scoped>
 .container {

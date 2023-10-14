@@ -5,7 +5,7 @@
             <div class="dropdown-content">
                 <a @click ="backCategory">All</a>
                 <a v-for="category in category" :key="category.id" class="content" href="#"
-                    @click="filterCategory(category.name)">{{ category.name }}</a>
+                    @click="filterCategory(category.name)" > {{ category.name }}</a>
             </div>
             <nuxt-link to="/Product/CreateProduct" class="add-product"> Add Product</nuxt-link>
             <nuxt-link to="/Product/CreateCategory" class="add-category"> Add Category</nuxt-link>
