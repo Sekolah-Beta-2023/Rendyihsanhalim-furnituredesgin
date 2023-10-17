@@ -1,17 +1,31 @@
 <template>
     <section class="flex-section">
         <div class="dropdown-wrapper">
-            <button class="dropdown-button"> Category</button>
-            <div class="dropdown-content">
-                <a @click ="backCategory">All</a>
-                <a v-for="category in category" :key="category.id" class="content" href="#"
-                    @click="filterCategory(category.name)" > {{ category.name }}</a>
+            <div class="search-cart">
+                <input type="text" class="form-control" placeholder="Search" v-model="searchQuery">
+                <div class="LoveADD">
+                    <a class="nav__cart"><i class="fa-solid fa-heart love" style="color: #ff0000;"></i>
+                        <span class="count"> {{ loveCount }}</span>
+                    </a>
+                </div>
+
             </div>
-            <nuxt-link to="/Product/CreateProduct" class="add-product"> Add Product</nuxt-link>
-            <nuxt-link to="/Product/CreateCategory" class="add-category"> Add Category</nuxt-link>
+
+            <div class="dropdown-left">
+                <button class="dropdown-button"> Category</button>
+                <div class="dropdown-content">
+                    <a @click="backCategory">All</a>
+                    <a v-for="category in category" :key="category.id" class="content" href="#"
+                        @click="filterCategory(category.name)"> {{ category.name }}</a>
+                </div>
+                <nuxt-link to="/Product/CreateProduct" class="add-product"> Add Product</nuxt-link>
+                <nuxt-link to="/Product/CreateCategory" class="add-category"> Add Category</nuxt-link>
+
+            </div>
         </div>
         <div class="wrap">
-            <CardComponent v-for="item in filteredItems" :key="item.id" :item="item" :onDelete="deleteItem" @getData="getItems" />
+            <CardComponent v-for="item in filteredItems" :key="item.id" :item="item" :onDelete="deleteItem"
+                @getData="getItems" @increaseLoveCount="increaseLoveCount"/>
         </div>
     </section>
 </template>
@@ -32,18 +46,27 @@ export default {
             category: [
 
             ],
-            selectedCategory: '', // Kategori yang dipilih
+            selectedCategory: '',// Kategori yang dipilih
+            searchQuery: '',
+            loveCount:0,
         };
     },
     computed: {
         filteredItems() {
-            // Filter item berdasarkan kategori yang dipilih
-            if (!this.selectedCategory) {
-                // Jika tidak ada kategori yang dipilih, tampilkan semua item
-                return this.items;
-            } else {
-                return this.items.filter(item => item.category === this.selectedCategory);
+            let itemsToDisplay = this.items;
+
+            // Filter items based on selected category
+            if (this.selectedCategory) {
+                itemsToDisplay = itemsToDisplay.filter(item => item.category === this.selectedCategory);
             }
+
+            // Further filter based on search query
+            if (this.searchQuery) {
+                const lowerCaseQuery = this.searchQuery.toLowerCase();
+                itemsToDisplay = itemsToDisplay.filter(item => item.name.toLowerCase().includes(lowerCaseQuery));
+            }
+
+            return itemsToDisplay;
         },
     },
 
@@ -51,7 +74,7 @@ export default {
         this.getItems();
         this.getCategory();
     },
-    
+
     methods: {
         filterCategory(category) {
             // Fungsi untuk mengatur kategori yang dipilih
@@ -94,6 +117,13 @@ export default {
                 console.error("Error deleting item:", error.message);
             }
         },
+
+        increaseLoveCount(isLoveActive, itemId) {
+      // Memperbarui loveCount berdasarkan status love (ditambah/dikurangkan)
+      this.loveCount += !isLoveActive ? 1 : -1;
+      // Logika lain yang mungkin diperlukan, seperti menyimpan informasi ke server
+      console.log(`Love ${!isLoveActive ? 'added' : 'removed'} for item with ID ${itemId}`);
+    },
     },
 };
 </script>
@@ -103,10 +133,17 @@ export default {
 /* Gaya umum untuk wrapper dropdown */
 .dropdown-wrapper {
     position: relative;
-    margin-top: 5rem;
+    margin: 5rem 2.25rem 0 2.25rem;
     display: flex;
-    margin-right: 3rem;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "Montserrat", sans-serif;
+    column-gap: 20px;
+}
+
+.dropdown-left {
+    position: relative;
+    display: flex;
     align-items: center;
     font-family: "Montserrat", sans-serif;
     column-gap: 20px;
@@ -136,7 +173,7 @@ export default {
     z-index: 1;
     font-family: "Montserrat", sans-serif;
     border-radius: 8px;
-    right:25rem;
+    right: 25rem;
 }
 
 /* Gaya untuk tautan di dalam dropdown */
@@ -158,6 +195,28 @@ export default {
 .dropdown-wrapper:hover .dropdown-content {
     display: block;
     top: 100%;
+}
+
+
+.search-cart{
+    display: flex;
+    column-gap: 10px;
+}
+.LoveADD {
+    position: relative
+}
+
+.love {
+    width: 20px;
+}
+
+.count {
+    position: absolute;
+    font-family: "Montserrat";
+    font-weight: 900;
+    font-size: .8rem;
+    bottom:.9rem;
+    left:1.2rem;
 }
 
 /* Penyesuaian responsif */

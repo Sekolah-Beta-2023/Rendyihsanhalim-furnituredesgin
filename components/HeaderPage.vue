@@ -27,7 +27,7 @@
             <nuxt-link to="/Signin"> Sign In</nuxt-link>
           </button>
           <span v-else>
-            <nuxt-link to="/Profile" class="nav__link">{{ user.email }}</nuxt-link>
+            <nuxt-link to="/Profile" class="nav__link">{{ user.id }}</nuxt-link>
           </span>
           <a class="nav__cart"><i class="fa-solid fa-cart-shopping"></i></a>
         </div>
@@ -69,27 +69,50 @@ export default {
     handleScroll() {
       this.isHeaderBlurred = window.scrollY >= 50;
     },
-  },
-  mounted() {
-    window.addEventListener('scroll', this.handleScroll);
-    const fetchUser = async () => {
+    async fetchUser() {
       try {
         const { data } = await supabase.auth.getUser();
         this.user = data.user ?? null;
+
+        if (this.user) {
+          // Splitting email to get username
+          const emailParts = this.user.email.split('@');
+          const username = emailParts[0];
+
+          // Insert data to Profil table
+          const { data: insertedData, error } = await supabase
+            .from('Profil')
+            .upsert([
+              {
+                uuid: this.user.id,
+                username: username,
+                email: this.user.email,
+                
+                // Add other fields as needed
+              },
+            ]);
+
+          if (error) {
+            console.error('Error inserting data into Profil:', error.message);
+          } else {
+            console.log('Inserted data into Profil:', insertedData);
+          }
+        }
       } catch (error) {
         console.error('Error fetching user:', error.message);
       }
-    };
-    fetchUser();
-    supabase.auth.onAuthStateChange((event, session) => {
-      fetchUser();
-    });
+    },
+  },
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll);
+    this.fetchUser(); // Call fetchUser on mount
   },
   beforeDestroy() {
     window.removeEventListener('scroll', this.handleScroll);
   },
 };
 </script>
+
 
 
 <style scoped>
