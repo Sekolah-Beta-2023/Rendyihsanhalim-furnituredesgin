@@ -14,6 +14,7 @@
       <a class="delete" @click="deleteItem"><i class="fa-solid fa-x icon"></i></a>
       <a class="addlove" :class="{ 'changecolorlove': !clickActive }" @click="toggleLove"><i class="fa-solid fa-heart"
           :style="{ color: !clickActive ? 'red' : 'black' }"></i></a>
+      <nuxt-link :to="{ path: '/Product/editProduct', query: { id: item.id }}" class="edit" ><i class="fa-regular fa-pen-to-square"></i></nuxt-link>
     </div>
   </section>
 </template>
@@ -126,7 +127,12 @@ export default {
 .changecolorlove {
   background: linear-gradient(90deg, rgb(219, 149, 149), pink, white);
 }
-
+.edit{
+  position:absolute;
+  top:5px;
+  left:5px;
+  width:3rem;
+}
 .icon {
   padding: 5px;
   text-align: center;

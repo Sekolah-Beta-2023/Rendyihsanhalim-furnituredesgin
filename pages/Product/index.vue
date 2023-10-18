@@ -8,7 +8,6 @@
                         <span class="count"> {{ loveCount }}</span>
                     </a>
                 </div>
-
             </div>
 
             <div class="dropdown-left">
@@ -203,11 +202,14 @@ export default {
     column-gap: 10px;
 }
 .LoveADD {
-    position: relative
+    position: relative;
+    display:flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .love {
-    width: 20px;
+    width:3rem;
 }
 
 .count {
@@ -217,6 +219,24 @@ export default {
     font-size: .8rem;
     bottom:.9rem;
     left:1.2rem;
+}
+.form-control {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 16px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-family: 'Montserrat', sans-serif;
+    transition: border-color 0.3s ease;
+}
+
+.form-control::placeholder {
+    color: #999;
+}
+
+.form-control:hover,
+.form-control:focus {
+    border-color: #007BFF;
 }
 
 /* Penyesuaian responsif */
