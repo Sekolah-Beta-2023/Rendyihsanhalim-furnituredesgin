@@ -27,7 +27,7 @@
             <nuxt-link to="/Signin"> Sign In</nuxt-link>
           </button>
           <span v-else>
-            <nuxt-link to="/Profile" class="nav__link">{{ user.id }}</nuxt-link>
+            <nuxt-link to="/Profile" class="nav__link">{{ user.email }}</nuxt-link>
           </span>
           <a class="nav__cart"><i class="fa-solid fa-cart-shopping"></i></a>
         </div>
@@ -67,7 +67,7 @@ export default {
       this.isMenuVisible = false;
     },
     handleScroll() {
-      this.isHeaderBlurred = window.scrollY >= 50;
+      this.isHeaderBlurred = window.scrollY >= 40;
     },
     async fetchUser() {
       try {

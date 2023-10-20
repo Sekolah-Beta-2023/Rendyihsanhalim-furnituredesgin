@@ -8,8 +8,7 @@
             </h1>
             <p class="paragraph2">Lorem ipsum dolor sit, Sque, tenetur rem alop sie akuiii!</p>
             <div class="explore-container">
-              <button class="Explore">Explore</button>
-              <button class="Explore">Explore</button>
+              <button class="Explore">Buy Now</button>
             </div>
           </div>
           <img src="~/assets/img/Sofa/SofaAbu.png" alt="">
@@ -28,32 +27,31 @@
   
 }
 .container{
-    padding-top:3.75rem;
+    padding-top:2rem;
 }
 .container img {
   position: absolute;
-  width: 550px;
-  top: 70px;
+  width: 600px;
+  top: 50px;
   left: 620px;
   filter: drop-shadow();
   cursor: pointer;
 }
 
 .paragraph {
-  padding: 2% 0 0 10%;
+  padding:3rem 0 0 9rem;
 }
 
 .paragraph1 {
   font-weight: 400;
-  font-size: 60px;
+  font-size: 3.5rem;
   color: white;
   display: flex;
 }
 
 .paragraph2 {
   font-size: medium;
-  margin-top: 0;
-  margin-left: 7px;
+
 }
 
 .explore-container {
@@ -84,53 +82,93 @@
 
 
   
-      @media (min-width: 319px) and (max-width: 576px) {
+    @media (min-width: 319px) and (max-width: 576px) {
 
-
+    .container{
+      padding-top: 4rem;
+    }
   .container img {
     position: absolute;
-    width: 400px;
-    top: 120px;
-    left: 50px;
+    width: 280px;
+    top: 250px;
+    left: 40px;
   }
 
   .paragraph {
     width: 100%;
+    display:flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    font-size: 10px;
     padding-left: 0px;
   }
 
   .paragraph1 {
-    font-size: 40px;
+    font-size: 2.5rem;
+  }
+  .paragraph2{
+    padding-top:.85rem;
+    font-size: 1rem;
   }
 
-  .Explore {
-    top: 50px;
-    left: 20px;
-  }
 }
 
 @media (min-width: 576px) and (max-width: 768px) {
 
+ 
+  .container{
+      padding-top:4rem;
+    }
+  .container img {
+    position: absolute;
+    width: 500px;
+    top: 160px;
+    left: 100px;
+  }
 
   .paragraph {
     width: 100%;
+    display:flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    font-size: 10px;
-    padding-left: 0px;
+    padding-left:0;
   }
 
   .paragraph1 {
-    font-size: 60px;
+    font-size: 3.25rem;
+    white-space: nowrap; /* Mencegah teks melompat ke baris baru */
   }
+  .paragraph1 br {
+    display: none; /* Menyembunyikan tag <br> */
+  }
+  .paragraph2{
+    padding-top:1rem;
+    font-size: 1.5rem;
+  }
+
+}
+@media (min-width: 769px) and (max-width: 1023px) {
+
 
   .container img {
     position: absolute;
-    width: 480px;
-    top: 120px;
-    left: 80px;
+    width: 500px;
+    top: 100px;
+    left: 250px;
+  }
+
+  .paragraph1 {
+    font-size: 3.25rem;
+  }
+  .paragraph2{
+    padding-top:.85rem;
+    font-size: 1rem;
   }
 }
+
+
   </style>
   
