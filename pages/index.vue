@@ -11,30 +11,23 @@
 </template>
 <style scoped>
 #app {
-    height: 370px;
     margin: 0;
-    background-image: url(~/assets/img/Logo/bg.jpg);
     background-position: center;
     width: 100%;
 }
 
 .vh {
+    background: linear-gradient(180deg,rgba(247, 245, 245, 0.87),rgb(235, 229, 229),white,white);
     height: 100vh;
 }
+.terluar{
+    height:2000px;
+}
 
-@media (min-width: 319px) and (max-width: 768px) {
-    #app {
-        height: 420px;
-    }
-
-    .vh {
-        height:700px;
+@media screen and (min-width: 767px) { 
+    .vh{
+        height: 770px;
     }
 }
 
-@media (min-width: 769px) and (max-width: 1023px) {
-    #app {
-        height: 380px;
-    }
-}
 </style>

@@ -27,7 +27,7 @@
             <nuxt-link to="/Signin"> Sign In</nuxt-link>
           </button>
           <span v-else>
-            <nuxt-link to="/Profile" class="nav__link">{{ user.email }}</nuxt-link>
+            <nuxt-link to="/Profile" class="nav__link">{{ this.username }}</nuxt-link>
           </span>
           <a class="nav__cart"><i class="fa-solid fa-cart-shopping"></i></a>
         </div>
@@ -57,6 +57,7 @@ export default {
       isMenuVisible: false,
       isHeaderBlurred: false,
       user: null,
+      username: '',
     };
   },
   methods: {
@@ -77,7 +78,7 @@ export default {
         if (this.user) {
           // Splitting email to get username
           const emailParts = this.user.email.split('@');
-          const username = emailParts[0];
+          this.username = emailParts[0];
 
           // Insert data to Profil table
           const { data: insertedData, error } = await supabase
@@ -250,7 +251,7 @@ export default {
 
 @media screen and (max-width:320px) {
   .container{
-    margin-inline: 0.75rem;
+    margin-inline: 0.5rem;
   }
 }
 @media screen and (min-width:576px) {
@@ -264,7 +265,7 @@ export default {
   .nav{
     height: calc(3.5rem+ 2rem);
     width: 100%;
-    margin-inline:6rem;
+    margin-inline:3rem;
     gap:1.75rem;
   }
 

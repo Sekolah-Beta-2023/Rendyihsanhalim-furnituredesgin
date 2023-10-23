@@ -1,87 +1,131 @@
 <template>
-      <div class="container">
-        <div class="page">
-          <div class="paragraph">
-            <h1 class="paragraph1">The Creative
-              <br>
-              Space Edition
-            </h1>
-            <p class="paragraph2">Lorem ipsum dolor sit, Sque, tenetur rem alop sie akuiii!</p>
-            <div class="explore-container">
-              <button class="Explore">Buy Now</button>
+      <section class="home">
+        <div class="home__container">
+            <img src="~/assets/img/Sofa/SOFAHOME.png" class="home__img" alt="">
+
+
+            <div class="home__text">
+              <h1 class="home__title">The Creative<br>Space Edition.</h1>
+
+              <p class="home__description">Minimalist as you can and see your future furniture here </p>
+
+              <a href="" class="button__home button_flex">
+                Explore <i class="fa-solid fa-arrow-right button__icon"></i>
+              </a>
+
+            </div>
+            <div class="home__social">
+              <span class="social__follow">Follow Us</span>
+              <div class="social__menu">
+                  <a href="" class="social__link"><i class="fa-brands fa-instagram"></i></a>
+                  <a href="" class="social__link"><i class="fa-brands fa-github"></i></a>
+                  <a href="" class="social__link"><i class="fa-brands fa-linkedin"></i></a>
+              </div>
             </div>
           </div>
-          <img src="~/assets/img/Sofa/SofaAbu.png" alt="">
-        </div>
-      </div>
+      </section>
 </template>
   
   <style scoped>
- .page {
-  font-family: "Poppins";
-  width: 100%;
-  margin: 0;
-  display: flex;
-  height: 200px;
-  font-size: 200px;
-  
-}
-.container{
-    padding-top:2rem;
-}
-.container img {
-  position: absolute;
-  width: 600px;
-  top: 50px;
-  left: 620px;
-  filter: drop-shadow();
-  cursor: pointer;
-}
 
-.paragraph {
-  padding:3rem 0 0 9rem;
-}
+  .home{
+    margin-inline: 2rem;
+    padding-top:4rem;
+  }
 
-.paragraph1 {
-  font-weight: 400;
-  font-size: 3.5rem;
-  color: white;
-  display: flex;
-}
+  .home__container{
+    display:grid;
+    grid-template-rows: repeat(2,max-content);
+    row-gap: 2rem;
+    position:relative;
+  }
 
-.paragraph2 {
-  font-size: medium;
+  .home__img{
+    width:300px;
+    filter: drop-shadow(5px 5px 10px rgb(209, 209, 209));
+    justify-self: center;
+  }
 
-}
+  .home__text{
+    font-family: "Poppins";
+  }
 
-.explore-container {
-  display: flex;
-  column-gap:5px;
-  margin-top: 30px;
- /* Menambahkan margin-top untuk mengatur jarak dari paragraf */
-}
+  .home__title{
+    font-size: 2.5rem;
+    color:rgb(0, 0, 0);
+    font-weight: 600;
+    margin-bottom: 1rem;
+    line-height: 4rem;
+  }
 
-.Explore {
-  width: 100px;
-  height: 30px;
-  border-radius: 20px;
-  border-style: none;
-  background: rgb(112, 102, 102);
-  color: white;
-  font-family: "Montserrat";
-  font-weight: bold;
-  cursor: pointer;
-}
+  .home__description{
+    font-size:1.25rem;
+    margin-bottom: 3rem;
+    line-height:1.75rem;
+  }
 
-.Explore:hover {
-  width: 120px;
-  height: 35px;
-  background: white;
-  color: #ffd100;
-}
+  .button__home{
+    display:inline-block;
+    background-color:rgb(29, 29, 49);
+    color:white;
+    padding:1rem 1.75rem;
+    border-radius: .5rem;
+    font-weight: 400;
+    transition:.3s;
+    cursor: pointer;
+
+  }
+
+  .button__home:hover{
+    background-color: rgb(21, 21, 68)
+  }
+
+  .button__icon{
+    transition:.3s;
+  }
+
+  .button__home:hover .button__icon{
+    transform:translateX(.5rem);
+  }
+
+  .button_flex{
+    display:inline-flex;
+    align-items:center;
+    column-gap:.5rem;
+  }
+
+  .home__social{
+    position:absolute;
+    top:2rem;
+    right:-2rem;
+    display:grid;
+    justify-items: center;
+    row-gap :3.5rem;
+  }
+  .social__follow{
+    font-weight: 400;
+    font-size: 1rem;
+    color:rgb(21, 21, 68);
+    transform: rotate(90deg);
+    font-family: "Poppins";
+    position:relative;
+  }
+
+  .social__link{
+    color:black;
+    font-size: 1rem;
+  }
+  .social__menu{
+    display:inline-flex;
+    flex-direction: column;
+    row-gap:.25rem;
+    justify-content: center;
+    align-items: center;
+    justify-self: center;
+  }
 
 
-  
+
     @media (min-width: 319px) and (max-width: 576px) {
 
     .container{
@@ -124,7 +168,7 @@
     position: absolute;
     width: 500px;
     top: 160px;
-    left: 100px;
+    left: 80px;
   }
 
   .paragraph {
